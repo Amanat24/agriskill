@@ -1,0 +1,162 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #4CAF50;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.course-content {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.course-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.course-item {
+    background: #e2e2e2;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.course-item:hover {
+    background: #d1d1d1;
+}
+
+.course-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.course-description {
+    display: none;
+    margin-top: 10px;
+    color: #555;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.course-item.active .course-description {
+    display: block;
+}
+
+.enroll-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.enroll-button:hover {
+    background: #45a049;
+}
+
+.enroll-form, .confirmation-message {
+    display: none; /* Hidden by default */
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.enroll-form h3, .confirmation-message h3 {
+    margin-top: 0;
+}
+
+.enroll-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.enroll-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.enroll-form button[type="submit"] {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.enroll-form button[type="submit"]:hover {
+    background: #45a049;
+}
+
+.confirmation-message {
+    text-align: center;
+}
+
+.confirmation-message a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.confirmation-message a:hover {
+    text-decoration: underline;
+}
+
+.social-sharing {
+    margin-top: 10px;
+}
+
+.social-sharing a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.social-sharing a:hover {
+    background: #45a049;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}

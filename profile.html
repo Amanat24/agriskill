@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | AgriSkill</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #388E3C;
+            --light-color: #F1F8E9;
+            --dark-color: #1B5E20;
+            --text-color: #333;
+            --light-text: #f5f5f5;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .profile-sidebar {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background-color: var(--light-color);
+            text-align: center;
+        }
+        
+        .profile-main {
+            flex: 2;
+            min-width: 400px;
+            padding: 30px;
+        }
+        
+        .profile-img-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .profile-img-container:hover {
+            transform: scale(1.03);
+        }
+        
+        .profile-img-container:hover .profile-img {
+            opacity: 0.8;
+        }
+        
+        .profile-img-container:hover .edit-img-btn {
+            background: var(--dark-color);
+            transform: scale(1.1);
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+        
+        .edit-img-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .edit-img-btn i {
+            font-size: 16px;
+        }
+        
+        #imageUpload {
+            display: none;
+        }
+        
+        .upload-message {
+            margin-top: 10px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+        
+        .upload-success {
+            color: var(--success-color);
+        }
+        
+        .upload-error {
+            color: var(--error-color);
+        }
+        
+        /* Rest of your existing CSS styles remain the same */
+        .profile-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .profile-title {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .profile-bio {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            color: var(--dark-color);
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 10px;
+        }
+        
+        .profile-field {
+            margin-bottom: 20px;
+        }
+        
+        .field-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .field-value {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        
+        .editable {
+            background: white;
+            cursor: text;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--dark-color);
+        }
+        
+        .btn-edit {
+            background: #f0f0f0;
+            color: var(--text-color);
+            margin-right: 10px;
+        }
+        
+        .btn-edit:hover {
+            background: #e0e0e0;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .skill-tag {
+            background: var(--light-color);
+            color: var(--dark-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .add-skill {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .add-skill input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .add-skill-btn {
+            padding: 8px 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .activity-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .activity-date {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .edit-mode {
+            display: none;
+        }
+        
+        .edit-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+            }
+            
+            .profile-sidebar, .profile-main {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo" onclick="window.location.href='index.html'">Homepage</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <div class="profile-img-container" id="profileImgContainer">
+                    <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Image" class="profile-img">
+                    <button class="edit-img-btn" id="editImgBtn" title="Change profile photo">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <input type="file" id="imageUpload" accept="image/*">
+                </div>
+                <div class="upload-message" id="uploadMessage"></div>
+                
+                <h1 class="profile-name" id="profileName">Amanat Pathania</h1>
+                <p class="profile-title" id="profileTitle">Organic Farming Expert</p>
+                <p class="profile-bio" id="profileBio">Passionate about sustainable agriculture and helping farmers adopt eco-friendly practices. Specializing in organic pest control and soil health improvement.</p>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">142</div>
+                        <div class="stat-label">Courses</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5.7K</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">328</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+                
+                <button id="editProfileBtn" class="btn btn-primary" style="margin-top: 30px; width: 100%;">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+            </div>
+            
+            <div class="profile-main">
+                <div class="view-mode">
+                    <h2 class="section-title">About Me</h2>
+                    <div class="profile-field">
+                        <span class="field-label">Location</span>
+                        <div class="field-value" id="locationField">Hoshiarpur , Punjab</div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Farming Experience</span>
+                        <div class="field-value" id="experienceField">9 years</div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Farm Size</span>
+                        <div class="field-value" id="farmSizeField">50 acres</div>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Primary Crops</span>
+                        <div class="field-value" id="cropsField">Corn, Soybeans, Wheat</div>
+                    </div>
+                    
+                    <h2 class="section-title">My Skills</h2>
+                    <div class="skills-container" id="skillsContainer">
+                        <span class="skill-tag">Organic Farming</span>
+                        <span class="skill-tag">Soil Analysis</span>
+                        <span class="skill-tag">Irrigation Systems</span>
+                        <span class="skill-tag">Pest Management</span>
+                        <span class="skill-tag">Crop Rotation</span>
+                    </div>
+                    
+                    <h2 class="section-title">Recent Activity</h2>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Completed course: Advanced Organic Fertilizers</div>
+                            <div class="activity-date">2 days ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Posted in Community: Best practices for drought season</div>
+                            <div class="activity-date">1 week ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Earned certification: Sustainable Agriculture</div>
+                            <div class="activity-date">2 weeks ago</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="edit-mode" id="editMode">
+                    <h2 class="section-title">Edit Profile</h2>
+                    <div class="profile-field">
+                        <label class="field-label" for="editName">Full Name</label>
+                        <input type="text" id="editName" class="field-value editable" value="Amanat Pathania">
+                    </div>
+                    <div class="profile-field">
+                        <label class="field-label" for="editTitle">Professional Title</label>
+                        <input type="text" id="editTitle" class="field-value editable" value="Organic Farming Expert">
+                    </div>
+                    <div class="profile-field">
+                        <label class="field-label" for="editBio">Bio</label>
+                        <textarea id="editBio" class="field-value editable" rows="4">Passionate about sustainable agriculture and helping farmers adopt eco-friendly practices. Specializing in organic pest control and soil health improvement.</textarea>
+                    </div>
+                    <div class="profile-field">
+                        <label class="field-label" for="editLocation">Location</label>
+                        <input type="text" id="editLocation" class="field-value editable" value="Hoshiarpur, Punjab">
+                    </div>
+                    <div class="profile-field">
+                        <label class="field-label" for="editExperience">Farming Experience</label>
+                        <input type="text" id="editExperience" class="field-value editable" value="15 years">
+                    </div>
+                    <div class="profile-field">
+                        <label class="field-label" for="editFarmSize">Farm Size</label>
+                        <input type="text" id="editFarmSize" class="field-value editable" value="50 acres">
+                    </div>
+                    <div class="profile-field">
+                        <label class="field-label" for="editCrops">Primary Crops</label>
+                        <input type="text" id="editCrops" class="field-value editable" value="Corn, Soybeans, Wheat">
+                    </div>
+                    
+                    <h2 class="section-title">Edit Skills</h2>
+                    <div class="skills-container" id="editSkillsContainer">
+                        <span class="skill-tag">Organic Farming <i class="fas fa-times remove-skill"></i></span>
+                        <span class="skill-tag">Soil Analysis <i class="fas fa-times remove-skill"></i></span>
+                        <span class="skill-tag">Irrigation Systems <i class="fas fa-times remove-skill"></i></span>
+                        <span class="skill-tag">Pest Management <i class="fas fa-times remove-skill"></i></span>
+                        <span class="skill-tag">Crop Rotation <i class="fas fa-times remove-skill"></i></span>
+                    </div>
+                    <div class="add-skill">
+                        <input type="text" id="newSkillInput" placeholder="Add new skill">
+                        <button class="add-skill-btn" id="addSkillBtn">Add</button>
+                    </div>
+                    
+                    <div class="edit-actions">
+                        <button id="cancelEditBtn" class="btn btn-edit">Cancel</button>
+                        <button id="saveProfileBtn" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const editMode = document.getElementById('editMode');
+        const viewMode = document.querySelector('.view-mode');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        const editImgBtn = document.getElementById('editImgBtn');
+        const imageUpload = document.getElementById('imageUpload');
+        const profileImage = document.getElementById('profileImage');
+        const profileImgContainer = document.getElementById('profileImgContainer');
+        const uploadMessage = document.getElementById('uploadMessage');
+        
+        // Form fields
+        const editName = document.getElementById('editName');
+        const editTitle = document.getElementById('editTitle');
+        const editBio = document.getElementById('editBio');
+        const editLocation = document.getElementById('editLocation');
+        const editExperience = document.getElementById('editExperience');
+        const editFarmSize = document.getElementById('editFarmSize');
+        const editCrops = document.getElementById('editCrops');
+        
+        // Display fields
+        const profileName = document.getElementById('profileName');
+        const profileTitle = document.getElementById('profileTitle');
+        const profileBio = document.getElementById('profileBio');
+        const locationField = document.getElementById('locationField');
+        const experienceField = document.getElementById('experienceField');
+        const farmSizeField = document.getElementById('farmSizeField');
+        const cropsField = document.getElementById('cropsField');
+        
+        // Skills management
+        const skillsContainer = document.getElementById('skillsContainer');
+        const editSkillsContainer = document.getElementById('editSkillsContainer');
+        const newSkillInput = document.getElementById('newSkillInput');
+        const addSkillBtn = document.getElementById('addSkillBtn');
+
+        // Load profile data from localStorage when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfileData();
+        });
+
+        // Function to load profile data from localStorage
+        function loadProfileData() {
+            const savedProfile = localStorage.getItem('userProfile');
+            if (savedProfile) {
+                const profile = JSON.parse(savedProfile);
+                
+                // Update profile image
+                if (profile.image) {
+                    profileImage.src = profile.image;
+                }
+                
+                // Update profile info
+                profileName.textContent = profile.name;
+                profileTitle.textContent = profile.title;
+                profileBio.textContent = profile.bio;
+                locationField.textContent = profile.location;
+                experienceField.textContent = profile.experience;
+                farmSizeField.textContent = profile.farmSize;
+                cropsField.textContent = profile.crops;
+                
+                // Update edit fields
+                editName.value = profile.name;
+                editTitle.value = profile.title;
+                editBio.value = profile.bio;
+                editLocation.value = profile.location;
+                editExperience.value = profile.experience;
+                editFarmSize.value = profile.farmSize;
+                editCrops.value = profile.crops;
+                
+                // Update skills
+                if (profile.skills) {
+                    skillsContainer.innerHTML = '';
+                    editSkillsContainer.innerHTML = '';
+                    
+                    profile.skills.forEach(skill => {
+                        // Add to view mode
+                        const viewSkill = document.createElement('span');
+                        viewSkill.className = 'skill-tag';
+                        viewSkill.textContent = skill;
+                        skillsContainer.appendChild(viewSkill);
+                        
+                        // Add to edit mode
+                        const editSkill = document.createElement('span');
+                        editSkill.className = 'skill-tag';
+                        editSkill.innerHTML = `${skill} <i class="fas fa-times remove-skill"></i>`;
+                        editSkillsContainer.appendChild(editSkill);
+                        
+                        // Add click handler for delete button
+                        editSkill.querySelector('.remove-skill').addEventListener('click', () => {
+                            editSkill.remove();
+                        });
+                    });
+                }
+            }
+        }
+
+        // Function to save profile data to localStorage
+        function saveProfileData() {
+            const skills = [];
+            editSkillsContainer.querySelectorAll('.skill-tag').forEach(tag => {
+                skills.push(tag.textContent.trim());
+            });
+            
+            const profile = {
+                image: profileImage.src,
+                name: editName.value,
+                title: editTitle.value,
+                bio: editBio.value,
+                location: editLocation.value,
+                experience: editExperience.value,
+                farmSize: editFarmSize.value,
+                crops: editCrops.value,
+                skills: skills
+            };
+            
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+        }
+
+        // Toggle edit mode
+        editProfileBtn.addEventListener('click', () => {
+            viewMode.style.display = 'none';
+            editMode.style.display = 'block';
+        });
+        
+        cancelEditBtn.addEventListener('click', () => {
+            viewMode.style.display = 'block';
+            editMode.style.display = 'none';
+        });
+        
+        // Save profile changes
+        saveProfileBtn.addEventListener('click', () => {
+            // Update profile info
+            profileName.textContent = editName.value;
+            profileTitle.textContent = editTitle.value;
+            profileBio.textContent = editBio.value;
+            locationField.textContent = editLocation.value;
+            experienceField.textContent = editExperience.value;
+            farmSizeField.textContent = editFarmSize.value;
+            cropsField.textContent = editCrops.value;
+            
+            // Update skills display
+            skillsContainer.innerHTML = editSkillsContainer.innerHTML;
+            // Remove the delete buttons from display mode
+            const skillTags = skillsContainer.querySelectorAll('.skill-tag');
+            skillTags.forEach(tag => {
+                if (tag.querySelector('.remove-skill')) {
+                    tag.removeChild(tag.querySelector('.remove-skill'));
+                }
+            });
+            
+            viewMode.style.display = 'block';
+            editMode.style.display = 'none';
+            
+            // Save to localStorage
+            saveProfileData();
+            
+            alert('Profile updated successfully!');
+        });
+        
+        // Profile image upload functionality
+        function showUploadMessage(message, isSuccess) {
+            uploadMessage.textContent = message;
+            uploadMessage.className = 'upload-message ' + (isSuccess ? 'upload-success' : 'upload-error');
+            setTimeout(() => {
+                uploadMessage.textContent = '';
+                uploadMessage.className = 'upload-message';
+            }, 3000);
+        }
+        
+        // Click on image container to trigger file selection
+        profileImgContainer.addEventListener('click', () => {
+            imageUpload.click();
+        });
+        
+        // Or click the camera button
+        editImgBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the container click
+            imageUpload.click();
+        });
+        
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            
+            if (!file) {
+                showUploadMessage('No file selected', false);
+                return;
+            }
+            
+            // Check if the file is an image
+            if (!file.type.match('image.*')) {
+                showUploadMessage('Please select an image file', false);
+                return;
+            }
+            
+            // Check file size (limit to 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                showUploadMessage('Image must be less than 2MB', false);
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onloadstart = () => {
+                showUploadMessage('Uploading image...', true);
+            };
+            
+            reader.onload = (event) => {
+                profileImage.src = event.target.result;
+                showUploadMessage('Profile image updated successfully!', true);
+                
+                // Save the new image to localStorage
+                saveProfileData();
+            };
+            
+            reader.onerror = () => {
+                showUploadMessage('Error reading image file', false);
+            };
+            
+            reader.readAsDataURL(file);
+        });
+        
+        // Add new skill
+        addSkillBtn.addEventListener('click', () => {
+            const skillText = newSkillInput.value.trim();
+            if (skillText) {
+                const skillTag = document.createElement('span');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `${skillText} <i class="fas fa-times remove-skill"></i>`;
+                editSkillsContainer.appendChild(skillTag);
+                newSkillInput.value = '';
+                
+                // Add click handler for the new delete button
+                skillTag.querySelector('.remove-skill').addEventListener('click', () => {
+                    skillTag.remove();
+                });
+            }
+        });
+        
+        // Allow pressing Enter to add skill
+        newSkillInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addSkillBtn.click();
+            }
+        });
+        
+        // Add click handlers for existing delete buttons
+        document.querySelectorAll('.remove-skill').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
+    </script>
+</body>
+</html>

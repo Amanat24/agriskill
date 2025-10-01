@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | AgriSkill</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #388E3C;
+      --accent: #8BC34A;
+      --text: #2E2E2E;
+      --light: #F5F5F5;
+      --white: #FFFFFF;
+      --border-radius: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .auth-container {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--border-radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .auth-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      padding: 30px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .auth-header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    
+    .auth-header p {
+      opacity: 0.9;
+      font-weight: 300;
+      font-size: 0.95rem;
+    }
+    
+    .auth-form {
+      padding: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    
+    .input-with-icon {
+      position: relative;
+    }
+    
+    .input-with-icon input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      border: 1px solid #E0E0E0;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background-color: var(--light);
+    }
+    
+    .input-with-icon input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-size: 20px;
+    }
+    
+    .password-strength {
+      margin-top: 8px;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    
+    .strength-meter {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s, background 0.3s;
+    }
+    
+    .auth-actions {
+      margin-top: 25px;
+    }
+    
+    .auth-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .auth-footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      font-size: 0.95rem;
+    }
+    
+    .auth-link {
+      color: var(--primary);
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .auth-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-header">
+      <h1>Join Our Community</h1>
+      <p>Create your AgriSkill account</p>
+    </div>
+    
+    <form class="auth-form" id="registerForm">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <div class="input-with-icon">
+          <span class="input-icon material-icons">person</span>
+          <input type="text" id="name" placeholder="Enter your full name" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-with-icon">
+          <span class="input-icon material-icons">email</span>
+          <input type="email" id="email" placeholder="farmer@example.com" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-with-icon">
+          <span class="input-icon material-icons">lock</span>
+          <input type="password" id="password" placeholder="Create a password" required oninput="checkPasswordStrength()">
+        </div>
+        <div class="password-strength">
+          <div class="strength-meter" id="strengthMeter"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-with-icon">
+          <span class="input-icon material-icons">lock_outline</span>
+          <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+        </div>
+      </div>
+      
+      <div class="auth-actions">
+        <button type="submit" class="auth-btn">Create Account</button>
+      </div>
+    </form>
+    
+    <div class="auth-footer">
+      Already have an account? <a href="login.html" class="auth-link">Sign in here</a>
+    </div>
+  </div>
+
+  <script>
+    function checkPasswordStrength() {
+      const password = document.getElementById('password').value;
+      const strengthMeter = document.getElementById('strengthMeter');
+      let strength = 0;
+      
+      // Length check
+      if (password.length > 7) strength += 25;
+      // Uppercase check
+      if (/[A-Z]/.test(password)) strength += 25;
+      // Number check
+      if (/[0-9]/.test(password)) strength += 25;
+      // Special char check
+      if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+      
+      strengthMeter.style.width = strength + '%';
+      
+      // Color indicators
+      if (strength < 40) {
+        strengthMeter.style.background = '#ff5722'; // Weak (red)
+      } else if (strength < 80) {
+        strengthMeter.style.background = '#ffc107'; // Medium (yellow)
+      } else {
+        strengthMeter.style.background = '#4caf50'; // Strong (green)
+      }
+    }
+    
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+      
+      const userData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: password
+      };
+      
+      localStorage.setItem('userData', JSON.stringify(userData));
+      alert('Registration successful! Redirecting to login...');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>
